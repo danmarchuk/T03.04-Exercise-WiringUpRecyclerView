@@ -22,14 +22,11 @@ import android.support.v7.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO (1) Create a private static final int called NUM_LIST_ITEMS and set it equal to 100
     private static final int NUM_LIST_ITEMS = 100;
 
     private GreenAdapter mAdapter;
     private RecyclerView mNumbersList;
 
-    // TODO (2) Create a GreenAdapter variable called mAdapter
-    // TODO (3) Create a RecyclerView variable called mNumbersList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +47,5 @@ public class MainActivity extends AppCompatActivity {
 
         mNumbersList.setAdapter(mAdapter);
 
-        // TODO (7) Use setHasFixedSize(true) to designate that the contents of the RecyclerView won't change an item's size
-
-        // TODO (8) Store a new GreenAdapter in mAdapter and pass it NUM_LIST_ITEMS
-
-        // TODO (9) Set the GreenAdapter you created on mNumbersList
     }
 }
