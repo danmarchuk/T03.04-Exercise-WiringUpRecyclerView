@@ -10,10 +10,9 @@
     <TextView
         android:id="@+id/tv_movie_title"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/holo_green_dark"
         android:paddingLeft="20dp"
-        android:paddingTop="15dp"
         android:textColor="@android:color/white"
         android:textSize="40sp"
         tools:text="Name of the Movie" />

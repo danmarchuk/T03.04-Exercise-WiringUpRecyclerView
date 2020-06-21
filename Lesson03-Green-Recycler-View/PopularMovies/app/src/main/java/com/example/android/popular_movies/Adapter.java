@@ -57,7 +57,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MoviesViewHolder> {
                 super(itemView);
             posterImageView = (ImageView) itemView.findViewById(R.id.iv_poster_main_activity);
             this.mOnMovieListener = onMovieListener;
-
             itemView.setOnClickListener(this);
         }
 
