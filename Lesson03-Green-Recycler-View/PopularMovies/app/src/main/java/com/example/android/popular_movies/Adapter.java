@@ -11,17 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MoviesViewHolder> {
 
+    private List<Movie> movies;
     private Context mContext;
-    private ArrayList<String> mImages = new ArrayList<>();
     private OnMovieListener mOnMovieListener;
 
-    public Adapter(Context mContext, ArrayList<String> mImages, OnMovieListener onMovieListener) {
+    public Adapter(Context mContext, List<Movie> movie, OnMovieListener onMovieListener) {
         this.mContext = mContext;
-        this.mImages = mImages;
+        this.movies = movie;
         this.mOnMovieListener = onMovieListener;
     }
 
@@ -40,13 +40,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MoviesViewHolder> {
     public void onBindViewHolder(@NonNull MoviesViewHolder holder, int position) {
         Glide.with(mContext)
                 .asBitmap()
-                .load(mImages.get(position))
+                .load(movies.get(position).getImageUrl())
                 .into(holder.posterImageView);
     }
 
     @Override
     public int getItemCount() {
-        return mImages.size();
+        return movies.size();
     }
 
     class MoviesViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
