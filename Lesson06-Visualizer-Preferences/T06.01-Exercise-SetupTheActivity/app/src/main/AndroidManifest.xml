@@ -13,7 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity"
+            android:label="@string/settings"
+            android:parentActivityName=".VisualizerActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".VisualizerActivity"/>
+        </activity>
         <activity android:name=".VisualizerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
