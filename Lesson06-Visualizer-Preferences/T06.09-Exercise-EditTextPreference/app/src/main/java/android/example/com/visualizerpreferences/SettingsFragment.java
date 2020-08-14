@@ -29,7 +29,11 @@ import android.widget.Toast;
 
 
 public class SettingsFragment extends PreferenceFragmentCompat implements
-        OnSharedPreferenceChangeListener {
+        OnSharedPreferenceChangeListener,  Preference.OnPreferenceChangeListener{
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        return false;
+    }
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
@@ -51,6 +55,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 setPreferenceSummary(p, value);
             }
         }
+
+        Preference preference = findPreference(getString(R.string.pref_size_key));
+        preference.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -74,14 +81,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
      */
     private void setPreferenceSummary(Preference preference, String value) {
         // TODO (3) Don't forget to add code here to properly set the summary for an EditTextPreference
-        if (preference instanceof ListPreference) {
-            // For list preferences, figure out the label of the selected value
-            ListPreference listPreference = (ListPreference) preference;
-            int prefIndex = listPreference.findIndexOfValue(value);
-            if (prefIndex >= 0) {
-                // Set the summary to that label
-                listPreference.setSummary(listPreference.getEntries()[prefIndex]);
-            }
+
+        if (preference instanceof  EditTextPreference) {
+            preference.setSummary(value);
         }
     }
     
