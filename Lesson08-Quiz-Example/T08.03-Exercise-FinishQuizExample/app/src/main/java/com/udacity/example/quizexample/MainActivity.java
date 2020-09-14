@@ -21,10 +21,14 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.udacity.example.droidtermsprovider.DroidTermsExampleContract;
+
+import java.security.cert.PolicyNode;
 
 /**
  * Gets the data from the ContentProvider and shows a series of flash cards.
@@ -32,6 +36,9 @@ import com.udacity.example.droidtermsprovider.DroidTermsExampleContract;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView mTextViewDefinition;
+
+    private TextView mTextViewWord;
     // The data from the DroidTermsExample content provider
     private Cursor mData;
 
@@ -57,6 +64,15 @@ public class MainActivity extends AppCompatActivity {
         // Get the views
         // TODO (1) You'll probably want more than just the Button
         mButton = (Button) findViewById(R.id.button_next);
+        mTextViewWord = (TextView) findViewById(R.id.text_view_word);
+        mTextViewDefinition = (TextView) findViewById(R.id.text_view_definition);
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onButtonClick(mButton);
+            }
+        });
 
         //Run the database operation to get the cursor off of the main thread
         new WordFetchTask().execute();
@@ -86,10 +102,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Change button text
         mButton.setText(getString(R.string.show_definition));
-
+        mTextViewDefinition.setText("The meaning of the word will be shown after you click the SHOW DEFINITION button");
         // TODO (3) Go to the next word in the Cursor, show the next word and hide the definition
         // Note that you shouldn't try to do this if the cursor hasn't been set yet.
         // If you reach the end of the list of words, you should start at the beginning again.
+        int wordCol = mData.getColumnIndex(DroidTermsExampleContract.COLUMN_WORD);
+        String theWord = mData.getString(wordCol);
+        mTextViewWord.setText(theWord);
         mCurrentState = STATE_HIDDEN;
 
     }
@@ -97,10 +116,15 @@ public class MainActivity extends AppCompatActivity {
     public void showDefinition() {
 
         // Change button text
+        if (mData.moveToNext() == true) {
         mButton.setText(getString(R.string.next_word));
-
         // TODO (4) Show the definition
+        int definitionCol = mData.getColumnIndex(DroidTermsExampleContract.COLUMN_DEFINITION);
+        String def = mData.getString(definitionCol);
+        mTextViewDefinition.setText(def);
         mCurrentState = STATE_SHOWN;
+        mData.moveToNext();
+        } else mData.moveToFirst();
 
     }
 
@@ -108,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // TODO (5) Remember to close your cursor!
+        mData.close();
     }
 
     // Use an async task to do the data fetch off of the main thread.
@@ -135,10 +160,11 @@ public class MainActivity extends AppCompatActivity {
 
             // Set the data for MainActivity
             mData = cursor;
-
             // TODO (2) Initialize anything that you need the cursor for, such as setting up
             // the screen with the first word and setting any other instance variables
-        }
+
+            mData.moveToFirst();
+            nextWord();
     }
 
-}
+}}
