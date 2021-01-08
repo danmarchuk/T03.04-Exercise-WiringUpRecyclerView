@@ -18,6 +18,7 @@ package com.udacity.example.quizexample;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -98,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO (1) Create AsyncTask with the following generic types <Void, Void, Cursor>
-    private class AsyncTaskClass extends AsyncTask<Void, Void, Cursor> {
+    private class AsyncTaskClass extends android.os.AsyncTask<Void,Void,Cursor> {
         @Override
         protected Cursor doInBackground(Void... voids) {
             ContentResolver resolver = getContentResolver();
-            Cursor cursor = resolver.query(DroidTermsExampleContract.CONTENT_URI, null,null,null,null);
+            Cursor cursor = resolver.query(DroidTermsExampleContract.CONTENT_URI,null, null, null, null);
             return cursor;
         }
 
@@ -115,5 +116,6 @@ public class MainActivity extends AppCompatActivity {
     // TODO (2) In the doInBackground method, write the code to access the DroidTermsExample
     // provider and return the Cursor object
     // TODO (4) In the onPostExecute method, store the Cursor object in mData
+
 
 }

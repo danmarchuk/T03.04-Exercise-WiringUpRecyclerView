@@ -22,9 +22,8 @@ class ListDataActivity extends AppCompatActivity {
         setContentView(R.layout.list_layout);
         mListView = (ListView) findViewById(R.id.list_view);
         mDatabaseHelper = new DatabaseHelper(this);
+    populateListView();}
 
-
-    }
     private void populateListView() {
         Cursor data = mDatabaseHelper.getData();
         ArrayList<String> listData = new ArrayList<>();

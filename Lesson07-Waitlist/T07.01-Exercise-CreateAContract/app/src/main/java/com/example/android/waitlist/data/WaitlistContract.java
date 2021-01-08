@@ -13,7 +13,6 @@ public class WaitlistContract {
         public static final String COLUMN_GUEST_NAME = "guestName";
         public static final String COLUMN_PARTY_SIZE = "partySize";
         public static final String COLUMN_TIMESTAMP = "timestamp";
-
     }
         // TODO (2) Inside create a static final members for the table name and each of the db columns
 
